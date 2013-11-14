@@ -1,0 +1,34 @@
+﻿@model IEnumerable<StartR.Domain.Client>
+
+@{
+    ViewBag.Title = "S.t.a.r.t.R";
+}
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        <h3 class="panel-title" style="color: #FFF">Clients</h3>
+    </div>
+    <div class="panel-body">
+        <a class="btn btn-default btn-sm" href="/client/create"><i class="icon-plus"></i>&nbsp;Create New</a>
+        <div id="Clients">
+            <i id="spinner" class="icon-spinner icon-spin icon-large"></i> Loading content...
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.getJSON('/api/clients', function (response) {
+                var html = '<table class="table table-striped table-bordered table-hover"><tbody>';
+                $.each(response, function (idx, d) {
+                    html += '<tr><td><a href=\'/client/details/' + d.id + '\'>' + d.lastName + ', ' + d.firstName + '</a></td></tr>';
+                });
+                html += '</tbody></table>';
+                $('#Clients').html(html);
+            });
+            $('.navbuttons').removeClass('active');
+            $('#nav_home').addClass('active');            
+        });
+    </script>
+}

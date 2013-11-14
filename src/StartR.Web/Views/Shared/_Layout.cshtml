@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width" />
+        @Styles.Render("~/Content/css")
+
+        @Scripts.Render("~/bundles/modernizr")
+    </head>
+    <body>
+        <div class="navbar navbar-default navbar-fixed-top">
+                <div class="container">
+                  <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-responsive-collapse">
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                      <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="/">S.t.a.r.t.R</a>
+                  </div>
+                  <div class="navbar-collapse collapse navbar-inverse-collapse">
+                    <ul class="nav navbar-nav">
+                      <li id="nav_home" class="navbuttons"><a href="/">Home</a></li>
+                      <li id="nav_about" class="navbuttons"><a href="/home/about">About</a></li>
+                    </ul>
+                      <div class="nav navbar-nav navbar-right">
+                          <span style="color: #FFF">Hello, @User.Identity.Name!</span>
+                      </div>
+                  </div><!-- /.nav-collapse -->
+                </div><!-- /.container -->
+              </div>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix row-fluid">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-right">
+                    <p>S.t.a.r.t.R</p>
+                </div>
+            </div>
+        </footer>
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </body>
+</html>
