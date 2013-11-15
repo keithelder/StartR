@@ -4,6 +4,7 @@ using StartR.Lib.Messaging;
 using System;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace StartR.MessageProcessorService
 {
@@ -27,19 +28,21 @@ namespace StartR.MessageProcessorService
                     Console.WriteLine(" [*] Waiting for messages." +
                                              "To exit press CTRL+C");
 
-                    int num = 0;
                     while (true)
                     {
                         var ea = (BasicDeliverEventArgs)consumer.Queue.Dequeue();
 
                         var body = ea.Body;
                         var message = Encoding.UTF8.GetString(body);
+                        //Task.Run(() =>
+                        //{
 
-                        Console.WriteLine(" [x] Received {0}", message);
-                        _Router.Route(message, () =>
-                        {
-                            channel.BasicAck(ea.DeliveryTag, false);
-                        });
+                            Console.WriteLine(" [x] Received {0}", message);
+                            _Router.Route(message, () =>
+                            {
+                                channel.BasicAck(ea.DeliveryTag, false);
+                            });
+                        //});
                     }
                 }
             }
