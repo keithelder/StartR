@@ -44,7 +44,7 @@ namespace StartR.Lib.Messaging
                     RouteClientCreateEvent(message, completion);
                     break;
 
-                case "QualifyNewClientCommand":
+                case "QualifyClientCommand":
                     RouteQualifyNewClientCommand(message, completion);
                     break;
             }
@@ -61,7 +61,7 @@ namespace StartR.Lib.Messaging
 
         private static void RouteQualifyNewClientCommand(string message, Action completion)
         {
-            XmlSerializer<QualifyNewClientCommand> qSer = new XmlSerializer<QualifyNewClientCommand>();
+            XmlSerializer<QualifyClientCommand> qSer = new XmlSerializer<QualifyClientCommand>();
             var qcmd = qSer.Deserialize(message);
             var handler = new QualifyNewClientCommandHandler();
             handler.Handle(qcmd, completion);

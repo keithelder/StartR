@@ -16,7 +16,7 @@ namespace StartR.Lib.Messaging.Handlers.Events
 
         public void Handle(ClientCreatedEvent msg, Action completion)
         {
-            QualifyNewClientCommand cmd = new QualifyNewClientCommand();
+            QualifyClientCommand cmd = new QualifyClientCommand();
             cmd.Address1 = msg.Address1;
             cmd.Address2 = msg.Address2;
             cmd.City = msg.City;
@@ -27,7 +27,7 @@ namespace StartR.Lib.Messaging.Handlers.Events
             cmd.State = msg.State;
             cmd.Zip = msg.Zip;
 
-            sender.Send<QualifyNewClientCommand>(cmd);
+            sender.Send<QualifyClientCommand>(cmd);
             if (completion != null)
                 completion();
         }

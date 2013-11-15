@@ -11,10 +11,10 @@ using XSerializer;
 
 namespace StartR.Lib.Messaging.Handlers.Commands
 {
-    public class QualifyNewClientCommandHandler : IHandle<QualifyNewClientCommand>
+    public class QualifyNewClientCommandHandler : IHandle<QualifyClientCommand>
     {
 
-        public void Handle(QualifyNewClientCommand command, Action completion)
+        public void Handle(QualifyClientCommand command, Action completion)
         {
             Console.WriteLine(String.Format("Qualifying new client {0}:{1}:{2}", command.Id, command.FirstName, command.LastName));
             Thread.Sleep(3000);
