@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="credentials.pwd" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>

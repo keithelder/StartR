@@ -15,7 +15,7 @@ namespace StartR.PushNotificationService
         public async void Start()
         {
             _cn = new HubConnection("http://localhost:29141/");
-            _cn.Credentials = new System.Net.NetworkCredential("", "", "");
+            _cn.Credentials = new System.Net.NetworkCredential(System.Configuration.ConfigurationSettings.AppSettings["username"], System.Configuration.ConfigurationSettings.AppSettings["password"], System.Configuration.ConfigurationSettings.AppSettings["domain"]);
             
             _proxy = _cn.CreateHubProxy("qualification");
             await _cn.Start();
