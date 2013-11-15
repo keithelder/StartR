@@ -1,5 +1,7 @@
 ﻿using StartR.Domain;
+using StartR.Lib.Messaging.Commands;
 using StartR.Lib.Messaging.Events;
+using StartR.Lib.Messaging.Handlers.Commands;
 using StartR.Lib.Messaging.Handlers.Events;
 using System;
 using System.Collections.Generic;
@@ -39,13 +41,30 @@ namespace StartR.Lib.Messaging
             switch (rootElement)
             {
                 case "ClientCreatedEvent":
-                    XmlSerializer<ClientCreatedEvent> serializer = new XmlSerializer<ClientCreatedEvent>();
-                    var cmd = serializer.Deserialize(message);
-                    var handler = new ClientCreatedEventHandler();
-                    handler.Handle(cmd, completion);
+                    RouteClientCreateEvent(message, completion);
+                    break;
+
+                case "QualifyNewClientCommand":
+                    RouteQualifyNewClientCommand(message, completion);
                     break;
             }
 
+        }
+
+        private static void RouteClientCreateEvent(string message, Action completion)
+        {
+            XmlSerializer<ClientCreatedEvent> serializer = new XmlSerializer<ClientCreatedEvent>();
+            var cmd = serializer.Deserialize(message);
+            var handler = new ClientCreatedEventHandler();
+            handler.Handle(cmd, completion);
+        }
+
+        private static void RouteQualifyNewClientCommand(string message, Action completion)
+        {
+            XmlSerializer<QualifyNewClientCommand> qSer = new XmlSerializer<QualifyNewClientCommand>();
+            var qcmd = qSer.Deserialize(message);
+            var handler = new QualifyNewClientCommandHandler();
+            handler.Handle(qcmd, completion);
         }
     }
 }

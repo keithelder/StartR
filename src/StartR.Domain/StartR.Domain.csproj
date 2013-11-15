@@ -48,7 +48,6 @@
     <Compile Include="IStartRDataSource.cs" />
     <Compile Include="Lead.cs" />
     <Compile Include="Loan.cs" />
-    <Compile Include="Mood.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

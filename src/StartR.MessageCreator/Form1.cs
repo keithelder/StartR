@@ -64,7 +64,7 @@ namespace StartR.MessageCreator
                     qual.BestCallTime = DateTime.Now.AddHours(5);
                     qual.PredictiveCreditScore = 725;
                     qual.QualityRating = 75;
-                    qual.TodaysMood = Mood.Happy;
+                    qual.TodaysMood = "Happy Happy";
 
                     var ser = new XmlSerializer<ClientQualification>();
                     var body = Encoding.UTF8.GetBytes(ser.Serialize(qual));
