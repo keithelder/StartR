@@ -16,6 +16,7 @@ namespace StartR.PushNotificationService
         {
             _cn = new HubConnection("http://localhost:29141/");
             _cn.Credentials = new System.Net.NetworkCredential("", "", "");
+            
             _proxy = _cn.CreateHubProxy("qualification");
             await _cn.Start();
             Console.WriteLine("Connection started for SignalR");
