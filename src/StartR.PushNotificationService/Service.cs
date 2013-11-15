@@ -8,6 +8,14 @@ using System.Text;
 
 namespace StartR.PushNotificationService
 {
+
+// NOTE: create this as credentials.pwd in your project, it will be ignored in source control
+//    <appSettings>
+//  <add key="username" value="" />
+//  <add key="password" value="" />
+//  <add key="domain" value="" />
+//</appSettings>
+
     public class Service : IService
     {
         private HubConnection _cn;
