@@ -2,6 +2,7 @@
 using Microsoft.AspNet.SignalR.Client.Hubs;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
+using StartR.Domain;
 using System;
 using System.Text;
 
@@ -37,8 +38,10 @@ namespace StartR.PushNotificationService
                         if (counter % 1000 == 00) Console.WriteLine("Processed " + counter);
                         var body = ea.Body;
                         var message = Encoding.UTF8.GetString(body);
+                        XSerializer.XmlSerializer<ClientQualification> ser = new XSerializer.XmlSerializer<ClientQualification>();
+                        var obj = ser.Deserialize(message);
                         Console.WriteLine("Messaged received: " + message.Substring(0, 25));
-                        _proxy.Invoke("updateQualification", message);
+                        _proxy.Invoke("updateQualification", obj);
                         channel.BasicAck(ea.DeliveryTag, false);
                     }
                 }
