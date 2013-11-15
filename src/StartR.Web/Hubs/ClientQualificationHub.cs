@@ -52,16 +52,16 @@ namespace StartR.Web.Hubs
             _clientQualification = qualification;
         }
 
-        public ClientQualification GetQualification(int id)
-        {
-            return new ClientQualification()
-                {
-                    BestCallTime = DateTime.Now,
-                    PredictiveCreditScore = 123,
-                    QualityRating = 3,
-                    TodaysMood = Mood.Happy
-                };
-        }
+        //public ClientQualification GetQualification(int id)
+        //{
+        //    return new ClientQualification()
+        //        {
+        //            BestCallTime = DateTime.Now,
+        //            PredictiveCreditScore = 123,
+        //            QualityRating = 3,
+        //            TodaysMood = Mood.Happy
+        //        };
+        //}
 
         public void UpdateQualification(ClientQualification cQual)
         {
