@@ -13,6 +13,7 @@ using StartR.Lib.Messaging.Events;
 using RabbitMQ.Client;
 using XSerializer;
 using StartR.Domain;
+using StartR.Lib.Messaging.Commands;
 
 namespace StartR.MessageCreator
 {
@@ -64,13 +65,43 @@ namespace StartR.MessageCreator
                     qual.BestCallTime = DateTime.Now.AddHours(5);
                     qual.PredictiveCreditScore = 725;
                     qual.QualityRating = 75;
-                    qual.TodaysMood = Mood.Happy;
+                    qual.TodaysMood = "Happy Happy";
 
                     var ser = new XmlSerializer<ClientQualification>();
                     var body = Encoding.UTF8.GetBytes(ser.Serialize(qual));
                     channel.BasicPublish("", "StartR.SignalR", null, body);
                     toolStripStatusLabel1.Text = "Done...";
                 }
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            var factory = new ConnectionFactory() { HostName = "localhost" };
+            using (var connection = factory.CreateConnection())
+            {
+                using (var channel = connection.CreateModel())
+                {
+                    channel.QueueDeclare("StartR", true, false, false, null);
+                    StartREntities db = new StartREntities();
+                    var q = db.Clients.OrderBy(m => m.LastName).Take(10);
+                    foreach (var client in q)
+                    {
+                        QualifyClientCommand cmd = new QualifyClientCommand();
+                        cmd.Address1 = client.Address1;
+                        cmd.Address2 = client.Address2;
+                        cmd.City = client.City;
+                        cmd.FirstName = client.FirstName;
+                        cmd.Id = client.Id;
+                        cmd.LastName = client.LastName;
+                        cmd.State = client.State;
+                        cmd.Zip = client.Zip;
+                        var ser = new XmlSerializer<QualifyClientCommand>();
+                        var body = Encoding.UTF8.GetBytes(ser.Serialize(cmd));
+                        channel.BasicPublish("", "StartR", null, body);
+                    }
+                }
+                toolStripStatusLabel1.Text = "Done sending clients.";
             }
         }
     }

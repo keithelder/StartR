@@ -25,7 +25,7 @@ namespace StartR.Web.Infrastructure
             hub.UpdateQualification(new Domain.ClientQualification() { BestCallTime = DateTime.Now.AddHours(4),
             PredictiveCreditScore = 725,
             QualityRating = 88,
-            TodaysMood = Mood.Happy });
+            TodaysMood = "awesome" });
         }
     }
 }

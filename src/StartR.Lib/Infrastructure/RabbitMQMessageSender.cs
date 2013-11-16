@@ -18,7 +18,7 @@ namespace StartR.Lib.Infrastructure
 
         private static void Initialize()
         {
-            s_factory = new ConnectionFactory() { HostName = "localhost", UserName = "guest" };
+            s_factory = new ConnectionFactory() { HostName = "localhost" };
             s_connection = s_factory.CreateConnection();
             s_channel = s_connection.CreateModel();
             s_channel.QueueDeclare("StartR", true, false, false, null);

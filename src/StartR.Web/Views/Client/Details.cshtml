@@ -7,7 +7,7 @@
 <h2>Details</h2>
 
 <div id="qualification">
-    <i id="spinner" class="icon-spinner icon-spin icon-large"></i> Loading content...
+    <i id="spinner" class="icon-spinner icon-spin icon-large"></i> Getting qualication info...
 </div>
 @Html.DisplayFor(model => model.FirstName)&nbsp;@Html.DisplayFor(model => model.LastName)<br/>
 @Html.DisplayFor(model => model.Address1)<br/>
@@ -28,7 +28,6 @@
         $(document).ready(function () {
             $('.navbuttons').removeClass('active');
             $('#nav_home').addClass('active');
-            SignalRInit('@Model.Id');
         });
     </script>
 }

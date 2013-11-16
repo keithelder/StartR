@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using RabbitMQ.Client;
 using ServiceStack.Common.Web;
 using ServiceStack.ServiceHost;
 using ServiceStack.ServiceInterface;
@@ -10,8 +11,10 @@ using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using XSerializer;
 
 namespace StartR.Web.Api
 {
@@ -39,9 +42,19 @@ namespace StartR.Web.Api
             ((DbContext)_db).SaveChanges();
 
             var cmd = Mapper.Map<ClientCreatedEvent>(client);
-            Task.Factory.StartNew(() =>
+            Task.Run(() =>
                     {
-                        _sender.Send<ClientCreatedEvent>(cmd);
+                        var factory = new ConnectionFactory() { HostName = "localhost" };
+                        using (var connection = factory.CreateConnection())
+                        {
+                            using (var channel = connection.CreateModel())
+                            {
+                                channel.QueueDeclare("StartR", true, false, false, null);
+                                var ser = new XmlSerializer<ClientCreatedEvent>();
+                                var body = Encoding.UTF8.GetBytes(ser.Serialize(cmd));
+                                channel.BasicPublish("", "StartR", null, body);
+                            }
+                        }
                     }
                 );
             return client.Id;

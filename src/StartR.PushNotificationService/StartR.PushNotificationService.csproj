@@ -55,6 +55,10 @@
     <Reference Include="Topshelf">
       <HintPath>..\packages\Topshelf.3.1.2\lib\net40-full\Topshelf.dll</HintPath>
     </Reference>
+    <Reference Include="XSerializer, Version=0.1.0.0, Culture=neutral, PublicKeyToken=9ab97cfaa8f0c80a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\XSerializer.0.1.9\lib\net40\XSerializer.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="IService.cs" />
@@ -64,11 +68,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="credentials.pwd" />
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\StartR.Domain\StartR.Domain.csproj">
+      <Project>{5b9c60b4-8138-4e0d-b0d6-e8bac4b32d5a}</Project>
+      <Name>StartR.Domain</Name>
+    </ProjectReference>
     <ProjectReference Include="..\StartR.Lib\StartR.Lib.csproj">
       <Project>{c1e3beeb-f0cc-456f-8b8d-649da7ff66a5}</Project>
       <Name>StartR.Lib</Name>
